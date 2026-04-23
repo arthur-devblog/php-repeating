@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, sans-serif;
+    color: #000;
+    background-color: #fff;
+    margin: 0;
+    padding: 40px;
+}
+h1, h2 {
+    font-weight: normal;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+th, td {
+    padding: 10px 5px;
+    text-align: left;
+}
+th {
+    border-bottom: 2px solid #000; /* Простая чёрная линия под заголовками */
+    font-weight: bold;
+}
+.statistics p {
+    margin: 5px 0;
+}
