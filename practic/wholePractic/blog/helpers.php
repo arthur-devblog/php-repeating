@@ -23,3 +23,42 @@ $myText = "Lorem Ipsum is simply dummy text of the printing and typesetting indu
 echo getExcerpt($myText, 50) . "<br / >";
 
 //cookie
+if (isset($_COOKIE["last_visit"])) {
+    echo "welcome back" . PHP_EOL;
+} else {
+    setcookie("last_visit", date("Y-m-d H:i:s"), time() + 60 * 60 * 24 * 30);
+    echo "welcome" . PHP_EOL;
+}
+
+//session
+if(isset($_GET['reset'])) {
+    unset($_SESSION['visits']);
+    header('Location: helpers.php');
+    exit();
+}
+if(!isset($_SESSION['visits'])) {
+    $_SESSION['visits'] = 1;
+} else {
+    $_SESSION['visits'] += 1;
+}
+
+echo "You entered to website " . $_SESSION['visits'] . " times" . "<br />";
+echo "<a href='?reset=1'>Reset</a>";
+
+$flash = null;
+if (isset($_SESSION['flash'])) {
+    $flash = $_SESSION['flash'];
+    unset($_SESSION['flash']);
+}
+
+if (isset($_GET['reset'])) {
+    unset($_SESSION['visits']);
+    header('Location: helpers.php');
+    exit();
+}
+
+if (isset($_GET['action']) && $_GET['action'] === 'save') {
+    $_SESSION['flash'] = "Data saved successfully!";
+    header('Location: helpers.php');
+    exit();
+}
