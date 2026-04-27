@@ -24,9 +24,9 @@ $employeesObjects = [];
 
 foreach ($rawEmployees as $data) {
     if ($data['role'] === 'Manager') {
-        $employeesObjects[] = new Manager($data['name'], $data['salary'], $data['experience']);
+        $employeesObjects[] = new Manager($data['name'], $data['salary'], $data['experience'], $data['lastName']);
     } elseif ($data['role'] === 'Developer') {
-        $employeesObjects[] = new Developer($data['name'], $data['salary'], $data['experience']);
+        $employeesObjects[] = new Developer($data['name'], $data['salary'], $data['experience'], $data['lastName']);
     }
 }
 ?>
@@ -49,6 +49,7 @@ foreach ($rawEmployees as $data) {
         <th>Name</th>
         <th>Role</th>
         <th>Experience (Years)</th>
+        <th>Last Name</th>
         <th>Base Salary</th>
         <th>Calculated Bonus</th>
         <th>Net Salary (After Taxes)</th>
@@ -58,8 +59,9 @@ foreach ($rawEmployees as $data) {
     <?php foreach ($employeesObjects as $employee): ?>
         <?php
         $name = htmlspecialchars($employee->getName());
-        $role = (new ReflectionClass($employee))->getShortName();
+        $lastName = htmlspecialchars($employee->getLastName());
         $experience = $employee->getExperience();
+        $role = (new ReflectionClass($employee))->getShortName();
         $baseSalary = $employee->getBaseSalary();
         $bonus = $employee->calculateBonus();
         $netSalary = $calculator->calculateNetSalary($employee);
@@ -69,6 +71,7 @@ foreach ($rawEmployees as $data) {
             <td><?= $name ?></td>
             <td><?= $role ?></td>
             <td><?= $experience ?></td>
+            <td><?= $lastName ?></td>
             <td>֏<?= number_format($baseSalary, 2, '.', ',') ?></td>
             <td>֏<?= number_format($bonus, 2, '.', ',') ?></td>
             <td class="money">֏<?= number_format($netSalary, 2, '.', ',') ?></td>

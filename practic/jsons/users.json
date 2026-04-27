@@ -1,0 +1,11 @@
+{
+    "name": "Arthur",
+    "lastName": "Gishyan",
+    "age": 19,
+    "university": {
+        "name": "Asue",
+        "faculty": "informational Technology",
+        "department": "Informational Systems",
+        "score": 14.4
+    }
+}
