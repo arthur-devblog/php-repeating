@@ -16,11 +16,6 @@ foreach ($values as $value) {
     }
 }
 
-/*
-2-потосу что проверяются и типы
-3-смысла $value === 0 $value === "0" не будет
-*/
-
 echo "<br />";
 
 //2
@@ -45,12 +40,6 @@ print_r($filteredUsers);
 
 echo "<br />";
 
-/*
-добавить проверку если пустая нужно запулнить
-добавить проверку на integer
-мы создаём новый массив к старому не применяем
-*/
-
 //3
 $order = [
     'paid' => true,
@@ -72,10 +61,6 @@ if ($order['cancelled']) {
 }
 
 echo $status;
-
-/*
-cancelled должен иметь приоритет чтобы вернуть деньги
-*/
 
 //4
 $user = [
@@ -106,11 +91,6 @@ if (!$userCheck) {
     echo "welcome admin!" . PHP_EOL;
 }
 
-/*
-2-ничего, программа поймёт
-3-добавить проверку
-*/
-
 //5
 $cart = [
     ['title' => 'Keyboard', 'price' => 100, 'qty' => 2],
@@ -126,12 +106,6 @@ foreach ($cart as $value) {
 echo $sum . PHP_EOL;
 
 echo "<br />";
-
-/*
-проверить больше ли она нуля
-приведём её к числу
-проверить например через in_array
-*/
 
 //6
 $tickets = [
@@ -156,11 +130,6 @@ print_r($sortedTickets);
 echo "</pre>";
 echo "<br />";
 
-/*
-проверить через empty
-добавить проверку
-*/
-
 //7
 function isValidEmail(string $email) : bool {
     if (empty($email) || strlen($email) > 255) {
@@ -174,7 +143,6 @@ function isValidEmail(string $email) : bool {
     }
     return true;
 }
-
 $emailCheck = isValidEmail("arthurgishyan2006@gmail.com");
 if (!$emailCheck) {
     echo "invalid email" . PHP_EOL;
@@ -183,10 +151,6 @@ if (!$emailCheck) {
 }
 
 echo "<br />";
-
-/*
-чтобы в дальнейшем можно было делать проверку, с echo так не сможем
-*/
 
 //8
 $request = [
@@ -214,10 +178,6 @@ if (!$aprooveCheck) {
 
 echo "<br />";
 
-/*
-
-*/
-
 //9
 $products = [
     ['title' => 'A', 'price' => 100],
@@ -242,10 +202,6 @@ print_r($discountedProducts);
 echo "</pre>";
 
 echo "<br />";
-
-/*
-
-*/
 
 //10
 function generateNumbers(bool $method ,int $from, int $to) : Generator {
