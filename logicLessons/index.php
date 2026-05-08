@@ -6,7 +6,7 @@ $values = [0,"0",false,null,"",[],"php"];
 
 foreach ($values as $value) {
     if (empty($value)) {
-        echo "Zero" . PHP_EOL;
+        echo "empty" . PHP_EOL;
     } elseif ($value === "0") {
         echo "String Zero" . PHP_EOL;
     } elseif ($value === 0) {
@@ -132,22 +132,17 @@ echo "<br />";
 
 //7
 function isValidEmail(string $email) : bool {
-    if (empty($email) || strlen($email) > 255) {
-        return false;
+    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return true;
     }
-    elseif (!str_contains($email, '@')) {
-        return false;
-    }
-    elseif (!str_contains($email, '.com')) {
-        return false;
-    }
-    return true;
+    return false;
 }
-$emailCheck = isValidEmail("arthurgishyan2006@gmail.com");
-if (!$emailCheck) {
-    echo "invalid email" . PHP_EOL;
+
+$email = isValidEmail('something@mail.ru');
+if (!$email) {
+    echo "invalid email address" . PHP_EOL;
 } else {
-    echo "valid email" . PHP_EOL;
+    echo "valid email address" . PHP_EOL;
 }
 
 echo "<br />";
@@ -160,7 +155,7 @@ $request = [
     'phone' => '+37499999999',
 ];
 
-function canAproove(array $request) : bool {
+function canAprove(array $request) : bool {
     if($request['amount'] <= 0) return false;
     if($request['user_blocked'] === false) return false;
     if($request['status'] !== 'pending') return false;
@@ -169,11 +164,11 @@ function canAproove(array $request) : bool {
     return true;
 }
 
-$aprooveCheck = canAproove($request);
-if (!$aprooveCheck) {
-    echo "cant aproove" . PHP_EOL;
+$aproveCheck = canAprove($request);
+if (!$aproveCheck) {
+    echo "cant aprove" . PHP_EOL;
 } else {
-    echo "cant aproove" . PHP_EOL;
+    echo "approved" . PHP_EOL;
 }
 
 echo "<br />";
@@ -198,47 +193,40 @@ $discountedProducts = applyDiscount($products, function($price) {
 });
 
 echo "<pre>";
+print_r($products);
 print_r($discountedProducts);
 echo "</pre>";
 
 echo "<br />";
 
 //10
-function generateNumbers(bool $method ,int $from, int $to) : Generator {
-
-    if($method) {
-        if($from >= $to) {
-            echo "from cant be bigger than to(you entered from smaller to bigger)" . PHP_EOL;
-        }
-        else {
-            for ($i = $from; $i <= $to; $i++) {
-                yield $i;
-            }
-        }
-    }
-    elseif(!$method) {
-        if ($from <= $to) {
-            echo "from cant be lesser than to(you selected from bigger to smaller)" . PHP_EOL;
-        }
-        for ($i = $from; $i >= $to; $i--) {
+function generateNumbers(int $from, int $to) : Generator {
+    if($from > $to) {
+        for ($i = $from; $i > $to; $i--) {
             yield $i;
         }
     }
+    elseif ($from < $to) {
+        for ($i = $from; $i < $to; $i++) {
+            yield $i;
+        }
+    }
+    if ($from === $to) yield $from;
 }
 
-foreach (generateNumbers(true,1,10) as $generated) {
+foreach (generateNumbers(1,10) as $generated) {
     echo $generated . PHP_EOL;
 }
 
 echo "<br />";
 
-foreach (generateNumbers(false,10,1) as $generated) {
+foreach (generateNumbers(10,1) as $generated) {
     echo $generated . PHP_EOL;
 }
 
 echo "<br />";
 
-foreach (generateNumbers(true,-10,10) as $generated) {
+foreach (generateNumbers(-10,10) as $generated) {
     echo $generated . PHP_EOL;
 }
 
@@ -296,7 +284,8 @@ function canMakeRequest(string $userId, array $request) : bool {
     }
     return true;
 }
-$requestCheck = canMakeRequest("user_1", $requests);
+//$requestCheck = canMakeRequest("user_1", $requests);
+$requestCheck = canMakeRequest("user_2", $requests);
 var_dump($requestCheck);
 
 echo "<br />";
@@ -399,10 +388,10 @@ $data = [
 ];
 
 if (!empty($data)) {
-    $maxScore = $data[0];
+    $maxScore = $data[0]['score'];
     foreach ($data as $value) {
-        if ($maxScore > $value) {
-            $maxScore = $value;
+        if ($maxScore < $value["score"]) {
+            $maxScore = $value["score"];
         }
     }
 }
